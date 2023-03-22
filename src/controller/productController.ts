@@ -28,6 +28,15 @@ class ProductController {
             console.log(e)
         }
     }
+
+    public async stockValue(req: Request, res: Response) {
+        try{
+            const stock = await productService.stockValue()
+            return res.status(200).send(JSON.stringify(stock))
+        } catch(e) {
+            console.log(e)
+        }
+    }
 }
 
 export default new ProductController()
