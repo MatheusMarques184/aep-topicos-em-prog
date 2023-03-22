@@ -18,9 +18,23 @@ class ProductService {
     public async findStock() {
         const getProducts = await this.findProduct()
         const productsStock: Array<object> = []
-        getProducts.forEach((product) => productsStock.push({ "nome": product.nome, "qtde": product.qtde, "preco": product.preco ,"valor_estoque": product.qtde * product.preco}))
+        getProducts.forEach((product) => productsStock.push({ 
+            "nome": product.nome,
+            "qtde": product.qtde,
+            "preco": product.preco ,
+            "valor_estoque": product.qtde * product.preco
+        }))
         return productsStock
     }
+
+    public async stockValue() {
+        const stock = await this.findStock()
+        const valueStock = stock.reduce((acc, item) => { 
+            return acc + item["valor_estoque"]
+        }, 0)
+        return valueStock
+    }
+    
 }
 
 export default new ProductService()
