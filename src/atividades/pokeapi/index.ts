@@ -8,7 +8,19 @@ class pokeApi {
         .then((data) =>  writeFile('pokemons.json', JSON.stringify(data.results, null, 2)));
     }
 
-    public async getPokemonLocal() {
+    public async getPokemonLocalWrite() {
+        const pokedex = JSON.parse(await readFile('pokemons.json', "utf-8"))
+        const pokedex2: Array<object> = []
+        pokedex.forEach(async (i) => {
+            await fetch(i.url).then((response) => response.json())
+                              .then((data) => pokedex2.push(data))
+                              if(pokedex2.length == pokedex.length) {
+                                writeFile('pokedex2.json', JSON.stringify(pokedex2, null, 2));
+                              }
+                        })
+    }
+
+    public async getPokemonLocalAppend() {
         const pokedex = JSON.parse(await readFile('pokemons.json', "utf-8"))
         pokedex.forEach(async (i) => {
             await fetch(i.url).then((response) => response.json())
@@ -18,4 +30,4 @@ class pokeApi {
 }
 
 const exec = new pokeApi()
-exec.getPokemonLocal()
+exec.getPokemonLocalWrite()
