@@ -1,25 +1,25 @@
-
-// 16 - importamos a Classe Router do express
 import { Router } from 'express'
-import healthCheckController from './controller/healthCheckController'
-import productController from './controller/productController'
-import userController from './controller/userController'
+import productController from './products/product.controller'
+import stockController from './stock/stock.controller'
+import userController from './user/user.controller'
 
-// 17 - criamos uma constante que recebe o objeto Router
 const routes = Router()
 
-// 18 - executamos o método get de Router() , e passamos como parametro, o nome da rota que queremos criar
-// e o método que deve ser executado quando esta rota for chamada
-routes.get('/health-check', healthCheckController.check)
+routes.post('/users', userController.create)
 routes.get('/users', userController.findAll)
 routes.get('/users/:id', userController.find)
-routes.post('/users', userController.create)
-routes.delete('/users/:id', userController.delete)
 routes.put('/users/:id', userController.update)
-routes.post('/products', productController.create)
-routes.get('/products', productController.list)
-routes.get('/products-stock', productController.getStock)
-routes.get('/products-stock-value', productController.getStockValue)
+routes.delete('/users/:id', userController.delete)
 
-// 19 - exportar a constante routes
+routes.post('/products', productController.create)
+routes.get('/products', productController.findAll)
+routes.get('/products/:id', productController.find)
+routes.put('/products/:id', productController.update)
+routes.delete('/products/:id', productController.delete)
+routes.get('/products-random', productController.randomProducts)
+
+
+routes.get('/products-stock-value', stockController.stockValue)
+routes.get('/products-stock', stockController.stock)
+
 export default routes
